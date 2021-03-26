@@ -89,3 +89,26 @@ exports.createEquipment = catchAsync(async (req, res, next) => {
     equipment: newEquipment,
   });
 });
+
+exports.issueEquipment = catchAsync(async (req, res, next) => {
+  // We will get id of the equipment that needs to be issued
+  const equipment = await Equipment.findById(req.body.id);
+  if (!equipment) {
+    return next(new AppError("No equipment", 403));
+  }
+
+  const user = req.user;
+  equipment.issuedTo = user.id;
+  equipment.issuedDate = new Date().toLocaleString();
+  equipment.status = "Issued";
+
+  const equipmentType = await EqType.findByIdAndUpdate(equipment.type, {
+    $inc: { issued: 1 },
+  });
+
+  await equipment.save();
+  res.status(200).json({
+    status: "success",
+    data: equipment,
+  });
+});

@@ -17,7 +17,7 @@ const equipmentSchema = new mongoose.Schema({
     ref: "User",
   },
   issuedDate: {
-    type: Date,
+    type: String,
   },
   type: {
     type: mongoose.Schema.ObjectId,
