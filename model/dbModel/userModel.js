@@ -14,9 +14,7 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, "Please provide a valid email"],
     },
-    bio: {
-      type: String,
-    },
+
     role: {
       type: String,
       enum: ["user", "admin", "superAdmin"],
@@ -26,61 +24,27 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
-    roll: {
+
+    hostel: {
       type: String,
       default: null,
     },
-    hostel: {
+    room: {
+      type: String,
+      default: "Not Specified",
+    },
+    rollNumber: {
       type: String,
     },
-    publishStatus: {
-      type: Boolean,
-      default: true,
-    },
-    verifyStatus: {
-      type: Boolean,
-      default: false,
-    },
-    autoVerify: {
-      type: Boolean,
-      default: false,
-    },
-    reportCount: {
-      type: Number,
-      default: 0,
-    },
-    reporters: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-      },
-    ],
+
     admissionYear: {
       type: Number,
       max: [new Date().getFullYear(), "Invalid year of admission"],
-    },
-    graduationYear: {
-      type: Number,
-    },
-    branch: {
-      type: String,
-      default: "Not Specified",
     },
     program: {
       type: String,
       default: "Not Specified",
     },
-    links: [
-      {
-        url: {
-          type: String,
-        },
-        name: {
-          type: String,
-          enum: ["LinkedIn", "GitHub", "Facebook", "Instagram", "Twitter"],
-        },
-      },
-    ],
   },
   {
     toJSON: { virtuals: true },
