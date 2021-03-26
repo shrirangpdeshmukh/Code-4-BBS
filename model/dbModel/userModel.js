@@ -1,31 +1,37 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-
+const mongoose = require("mongoose");
+const validator = require("validator");
 
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Name of the user should be specified'],
+      required: [true, "Name of the user should be specified"],
     },
     email: {
       type: String,
-      required: [true, 'Please provide your email'],
+      required: [true, "Please provide your email"],
       unique: true,
       lowercase: true,
-      validate: [validator.isEmail, 'Please provide a valid email'],
+      validate: [validator.isEmail, "Please provide a valid email"],
     },
     bio: {
       type: String,
     },
     role: {
       type: String,
-      enum: ['user', 'admin', 'superAdmin'],
-      default: 'user',
+      enum: ["user", "admin", "superAdmin"],
+      default: "user",
     },
     image: {
       type: String,
       default: null,
+    },
+    roll: {
+      type: String,
+      default: null,
+    },
+    hostel: {
+      type: String,
     },
     publishStatus: {
       type: Boolean,
@@ -46,23 +52,23 @@ const userSchema = new mongoose.Schema(
     reporters: [
       {
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
+        ref: "User",
       },
     ],
     admissionYear: {
       type: Number,
-      max: [new Date().getFullYear(), 'Invalid year of admission'],
+      max: [new Date().getFullYear(), "Invalid year of admission"],
     },
     graduationYear: {
       type: Number,
     },
     branch: {
       type: String,
-      default: 'Not Specified',
+      default: "Not Specified",
     },
     program: {
       type: String,
-      default: 'Not Specified',
+      default: "Not Specified",
     },
     links: [
       {
@@ -71,7 +77,7 @@ const userSchema = new mongoose.Schema(
         },
         name: {
           type: String,
-          enum: ['LinkedIn', 'GitHub', 'Facebook', 'Instagram', 'Twitter'],
+          enum: ["LinkedIn", "GitHub", "Facebook", "Instagram", "Twitter"],
         },
       },
     ],
@@ -82,7 +88,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.index({ name: 'text', email: 'text' });
+userSchema.index({ name: "text", email: "text" });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 module.exports = User;

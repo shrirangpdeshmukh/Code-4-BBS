@@ -17,7 +17,7 @@ exports.createEqType = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllEquimentTypes = catchAsync(async (req, res, next) => {
-  const docs = await EqType.find().populate({
+  const docs = await Eqtype.find().populate({
     path: "equipments",
     model: "Equipment",
   });

@@ -12,6 +12,18 @@ const eqtypeSchema = new mongoose.Schema({
     unique: true,
     req: [true, "Equipment Type must have a name"],
   },
+  status: {
+    type: String,
+    enum: ["Available", "Not Available"],
+  },
+  totat: {
+    type: Number,
+    deafult: 0,
+  },
+  issued: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Eqtype = mongoose.model("Eqtype", eqtypeSchema);

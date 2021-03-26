@@ -134,35 +134,30 @@ const googleLogin = catchAsync(async (req, res, next) => {
 
         try {
           User.findOne({ email })
-            .populate({
-              path: "tags",
-              model: "Tag",
-              select: "name group",
-            })
-            .exec(async (err, user) => {
-              if (err) {
-                return res.status(404).json({
-                  message: err.message,
-                });
+          .exec(async (err, user) => {
+            if (err) {
+              return res.status(404).json({
+                message: err.message,
+              });
+            } else {
+              if (user) {
+                await User.updateOne({ email }, { image: picture });
+                createSendToken(user, 200, res);
               } else {
                 if (user) {
                   await User.updateOne({ email }, { image: picture });
                   createSendToken(user, 200, res);
                 } else {
-                  if (user) {
-                    await User.updateOne({ email }, { image: picture });
-                    createSendToken(user, 200, res);
-                  } else {
-                    const newUser = await User.create({
-                      name: name,
-                      email: email,
-                      image: picture,
-                    });
-                    createSendToken(newUser, 200, res);
-                  }
+                  const newUser = await User.create({
+                    name: name,
+                    email: email,
+                    image: picture,
+                  });
+                  createSendToken(newUser, 200, res);
                 }
               }
-            });
+            }
+          });
         } catch (err) {
           throw new AppError(err.message, 401);
         }
