@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const complaintSchema = new mongoose.Schema({
   student: {
-    type: mongoose.Schema.Object,
+    type: mongoose.Schema.ObjectId,
     ref: "User",
     required: [true, "Complaint must have a user"],
   },
