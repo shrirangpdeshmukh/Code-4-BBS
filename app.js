@@ -12,6 +12,7 @@ const globalErrorHandler = require("./controller/errorController");
 
 // const userRouter = require('./routes/userRoutes');
 const authRouter = require("./routes/authRoutes");
+const sportRouter = require("./routes/sportRoutes");
 // const adminRouter = require('./routes/adminRoutes');
 // require('./cronJobs/backup');
 
@@ -43,6 +44,9 @@ app.get("/:clientEndpoint", (req, res, next) => {
 
 //Authentication Endpoint
 app.use("/api/v1/auth", authRouter);
+
+//Sport Equipment routes
+app.use("/api/v1/sport", sportRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

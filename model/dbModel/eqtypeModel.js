@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
-
+const Equiment = require("./equipmentModel");
 const eqtypeSchema = new mongoose.Schema({
   equipments: [
     {
-      type: mongoose.Schema.Object,
+      type: mongoose.Schema.ObjectId,
       ref: "Equipment",
     },
   ],
   name: {
     type: String,
+    unique: true,
     req: [true, "Equipment Type must have a name"],
   },
 });

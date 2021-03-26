@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-
+const User = require("./userModel");
+const EqType = require("./eqtypeModel");
 const equipmentSchema = new mongoose.Schema({
   id: {
     type: String,
@@ -11,21 +12,21 @@ const equipmentSchema = new mongoose.Schema({
     enum: ["Issued", "Available"],
   },
   issuedTo: {
-    type: mongoose.Schema.Object,
+    type: mongoose.Schema.ObjectId,
     ref: "User",
   },
   issuedDate: {
     type: Date,
   },
   type: {
-    type: mongoose.Schema.Object,
+    type: mongoose.Schema.ObjectId,
     ref: "Eqtype",
   },
   history: [
     {
       issuedDate: Date,
       issuedTo: {
-        type: mongoose.Schema.Object,
+        type: mongoose.Schema.ObjectId,
         ref: "User",
       },
     },
