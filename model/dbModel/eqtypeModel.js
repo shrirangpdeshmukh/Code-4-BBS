@@ -16,9 +16,9 @@ const eqtypeSchema = new mongoose.Schema({
     type: String,
     enum: ["Available", "Not Available"],
   },
-  totat: {
+  totalEquipments: {
     type: Number,
-    deafult: 0,
+    default: 0,
   },
   issued: {
     type: Number,

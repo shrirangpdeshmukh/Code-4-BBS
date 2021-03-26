@@ -8,7 +8,7 @@ exports.createEqType = catchAsync(async (req, res, next) => {
     return next(new AppError("No eqType given", 503));
   }
   const name = req.body.eqType;
-  const newEqtype = await Eqtype.create({ name });
+  const newEqtype = await EqType.create({ name });
 
   res.status(200).json({
     status: "sucesss",
@@ -17,7 +17,7 @@ exports.createEqType = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllEquimentTypes = catchAsync(async (req, res, next) => {
-  const docs = await Eqtype.find().populate({
+  const docs = await EqType.find().populate({
     path: "equipments",
     model: "Equipment",
   });
