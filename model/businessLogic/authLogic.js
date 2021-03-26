@@ -153,23 +153,12 @@ const googleLogin = catchAsync(async (req, res, next) => {
                     await User.updateOne({ email }, { image: picture });
                     createSendToken(user, 200, res);
                   } else {
-                    if (config.SIGNUP_TOGGLE == "true") {
-                      const newUser = await User.create({
-                        name: name,
-                        email: email,
-                        image: picture,
-                      });
-                      createSendToken(newUser, 200, res);
-                    } else {
-                      visitor = {
-                        _id: email,
-                        name: name,
-                        email: email,
-                        role: "visitor",
-                        image: picture,
-                      };
-                      createSendToken(visitor, 200, res);
-                    }
+                    const newUser = await User.create({
+                      name: name,
+                      email: email,
+                      image: picture,
+                    });
+                    createSendToken(newUser, 200, res);
                   }
                 }
               }

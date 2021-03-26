@@ -10,32 +10,32 @@ import ProductListView from './views/product/ProductListView';
 import RegisterView from './views/auth/RegisterView';
 import SettingsView from './views/settings/SettingsView';
 
-const setUserAsProps = (user,cookies) => { 
+const setUserAsProps = (user, cookies) => {
   return [
-  {
-    path: 'app',
-    element: <DashboardLayout />,
-    children: [
-      { path: 'account', element: <AccountView /> },
-      { path: 'customers', element: <CustomerListView /> },
-      { path: 'dashboard', element: <DashboardView /> },
-      { path: 'products', element: <ProductListView /> },
-      { path: 'settings', element: <SettingsView /> },
-      { path: '*', element: <Navigate to="/404" /> }
-    ]
-  },
-  {
-    path: '/',
-    element: <MainLayout />,
-    children: [
-      { path: 'login', element: <LoginView /> },
-      { path: 'register', element: <RegisterView /> },
-      { path: '404', element: <NotFoundView /> },
-      { path: '/', element: <Navigate to="/app/dashboard" /> },
-      { path: '*', element: <Navigate to="/404" /> }
-    ]
-  }
-];
-}
+    {
+      path: 'app',
+      element: <DashboardLayout user={user} cookies={cookies} />,
+      children: [
+        { path: 'account', element: <AccountView user={user} /> },
+        { path: 'customers', element: <CustomerListView user={user} /> },
+        { path: 'dashboard', element: <DashboardView user={user} /> },
+        { path: 'products', element: <ProductListView user={user} /> },
+        { path: 'settings', element: <SettingsView /> },
+        { path: '*', element: <Navigate to="/404" /> },
+      ],
+    },
+    {
+      path: '/',
+      element: <MainLayout />,
+      children: [
+        { path: 'login', element: <LoginView /> },
+        { path: 'register', element: <RegisterView /> },
+        { path: '404', element: <NotFoundView /> },
+        { path: '/', element: <Navigate to="/app/dashboard" /> },
+        { path: '*', element: <Navigate to="/404" /> },
+      ],
+    },
+  ];
+};
 
 export default setUserAsProps;
