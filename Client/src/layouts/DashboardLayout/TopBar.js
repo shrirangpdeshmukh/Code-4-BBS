@@ -12,16 +12,13 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
-import Logo from 'src/components/Logo';
+import Logo from '../../components/Logo';
 
 const TopBar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
 
   return (
-    <AppBar
-      elevation={0}
-      {...rest}
-    >
+    <AppBar elevation={0} {...rest}>
       <Toolbar>
         <RouterLink to="/">
           <Logo />
@@ -42,10 +39,7 @@ const TopBar = ({ onMobileNavOpen, ...rest }) => {
           </IconButton>
         </Hidden>
         <Hidden lgUp>
-          <IconButton
-            color="inherit"
-            onClick={onMobileNavOpen}
-          >
+          <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />
           </IconButton>
         </Hidden>

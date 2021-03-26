@@ -1,12 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
-import Logo from 'src/components/Logo';
+import Logo from '../../components/Logo';
 
 const TopBar = (props) => (
-  <AppBar
-    elevation={0}
-    {...props}
-  >
+  <AppBar elevation={0} {...props}>
     <Toolbar sx={{ height: 64 }}>
       <RouterLink to="/">
         <Logo />
