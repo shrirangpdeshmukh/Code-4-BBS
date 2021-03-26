@@ -10,6 +10,7 @@ const equipmentSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ["Issued", "Available"],
+    default: "Available",
   },
   issuedTo: {
     type: mongoose.Schema.ObjectId,
@@ -21,6 +22,7 @@ const equipmentSchema = new mongoose.Schema({
   type: {
     type: mongoose.Schema.ObjectId,
     ref: "Eqtype",
+    req: [true, "Equipment must have a type"],
   },
   history: [
     {
