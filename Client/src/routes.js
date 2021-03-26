@@ -10,7 +10,8 @@ import ProductListView from './views/product/ProductListView';
 import RegisterView from './views/auth/RegisterView';
 import SettingsView from './views/settings/SettingsView';
 
-const routes = [
+const setUserAsProps = (user,cookies) => { 
+  return [
   {
     path: 'app',
     element: <DashboardLayout />,
@@ -35,5 +36,6 @@ const routes = [
     ]
   }
 ];
+}
 
-export default routes;
+export default setUserAsProps;
