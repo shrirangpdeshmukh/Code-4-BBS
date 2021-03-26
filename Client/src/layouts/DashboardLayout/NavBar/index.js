@@ -25,12 +25,6 @@ import NavItem from './NavItem';
 import { GoogleLogout } from 'react-google-login';
 import axios from 'axios';
 
-const user1 = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-};
-
 const items = [
   {
     href: '/app/dashboard',
@@ -51,26 +45,6 @@ const items = [
     href: '/app/account',
     icon: UserIcon,
     title: 'Account',
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings',
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login',
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register',
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error',
   },
 ];
 const logOut = (cookies) => {
@@ -178,7 +152,7 @@ const NavBar = ({ user, cookies, onMobileClose, openMobile }) => {
           {content}
         </Drawer>
       </Hidden>
-      <Hidden mdDown>
+      <Hidden lgDown>
         <Drawer
           anchor="left"
           open
