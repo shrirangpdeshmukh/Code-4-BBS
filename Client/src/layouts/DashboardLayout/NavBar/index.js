@@ -47,6 +47,13 @@ const items = [
     icon: ShoppingBagIcon,
     title: 'Sports',
   },
+
+  {
+    href: '/app/complaints',
+    icon: ShoppingBagIcon,
+    title: 'Complaints',
+  },
+
   {
     href: '/app/account',
     icon: UserIcon,
