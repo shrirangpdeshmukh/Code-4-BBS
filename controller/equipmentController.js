@@ -34,7 +34,10 @@ exports.getAllEquimentTypes = catchAsync(async (req, res, next) => {
 exports.getAllEquiments = catchAsync(async (req, res, next) => {
   let { id } = req.params;
 
-  const docs = await Equipment.find({ type: id });
+  const docs = await EqType.findById(id).populate({
+    path: "equipments",
+    model: "Equipment",
+  });
 
   if (!docs) {
     res.status(404).json({
@@ -46,9 +49,7 @@ exports.getAllEquiments = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     results: docs.length,
-    data: {
-      docs,
-    },
+    docs,
   });
 });
 
@@ -80,8 +81,9 @@ exports.createEquipment = catchAsync(async (req, res, next) => {
   const data = req.body;
   const newEquipment = await Equipment.create({ ...data });
 
-  const equipmentType = await EqType.findByIdAndUpdate(data.type, {
+  await EqType.findByIdAndUpdate(data.type, {
     $inc: { totalEquipments: 1 },
+    $push: { equipment: newEquipment._id },
   });
 
   res.status(200).json({

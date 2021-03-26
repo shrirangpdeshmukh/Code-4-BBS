@@ -10,6 +10,7 @@ import ProductListView from './views/product/ProductListView';
 import RegisterView from './views/auth/RegisterView';
 import SettingsView from './views/settings/SettingsView';
 import ComplaintView from './views/complaint/ComplaintView';
+import EquipmentView from './views/product/EquipmentView';
 
 const setUserAsProps = (user, cookies) => {
   return [
@@ -21,6 +22,7 @@ const setUserAsProps = (user, cookies) => {
         { path: 'customers', element: <CustomerListView user={user} /> },
         { path: 'dashboard', element: <DashboardView user={user} /> },
         { path: 'sports', element: <ProductListView user={user} /> },
+        { path: 'sports/:id', element: <EquipmentView user={user} /> },
         { path: 'settings', element: <SettingsView /> },
         { path: 'complaints', element: <ComplaintView user={user} /> },
         { path: '*', element: <Navigate to="/404" /> },

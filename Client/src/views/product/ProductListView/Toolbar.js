@@ -6,7 +6,7 @@ import {
   CardContent,
   TextField,
   InputAdornment,
-  SvgIcon
+  SvgIcon,
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 
@@ -15,39 +15,29 @@ const Toolbar = (props) => (
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
       }}
     >
-      <Button>
-        Import
-      </Button>
-      <Button sx={{ mx: 1 }}>
-        Export
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-      >
+      <Button>Import</Button>
+      <Button sx={{ mx: 1 }}>Export</Button>
+      <Button color="primary" variant="contained">
         Add product
       </Button>
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
-          <Box sx={{ maxWidth: 500 }}>
+          <Box>
             <TextField
               fullWidth
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SvgIcon
-                      fontSize="small"
-                      color="action"
-                    >
+                    <SvgIcon fontSize="small" color="action">
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
-                )
+                ),
               }}
               placeholder="Search product"
               variant="outlined"
@@ -60,7 +50,7 @@ const Toolbar = (props) => (
 );
 
 Toolbar.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default Toolbar;

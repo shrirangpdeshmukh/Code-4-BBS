@@ -32,7 +32,7 @@ class SportsList extends Component {
     return (
       <>
         <Helmet>
-          <title>Products</title>
+          <title>Sports</title>
         </Helmet>
         <Box
           sx={{
@@ -46,7 +46,11 @@ class SportsList extends Component {
             {!this.state.isLoading ? (
               <>
                 <Box sx={{ pt: 3 }}>
-                  <Grid container spacing={3}>
+                  <Grid
+                    container
+                    spacing={3}
+                    style={{ justifyContent: 'center' }}
+                  >
                     {!this.state.isLoading &&
                       this.state.sports.map((product) => (
                         <Grid item key={product.id} lg={4} md={6} xs={12}>
@@ -58,15 +62,21 @@ class SportsList extends Component {
                       ))}
                   </Grid>
                 </Box>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    pt: 3,
-                  }}
-                >
-                  <Pagination color="primary" count={3} size="small" />
-                </Box>
+                {this.state.sports.length > 3 ? (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      pt: 3,
+                    }}
+                  >
+                    <Pagination
+                      color="primary"
+                      count={this.state.sports.length / 3 + 1}
+                      size="small"
+                    />
+                  </Box>
+                ) : null}
               </>
             ) : null}
           </Container>
