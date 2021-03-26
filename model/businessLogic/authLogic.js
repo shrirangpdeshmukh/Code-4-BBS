@@ -76,13 +76,7 @@ const verifyJwtToken = catchAsync(async (req, res, next) => {
 });
 
 const loggedInUser = catchAsync(async (req, res, next) => {
-  const currentUser = await User.findById(req.jwtPayload.id)
-    .populate({
-      path: "tags",
-      model: "Tag",
-      select: "name group",
-    })
-    .lean();
+  const currentUser = await User.findById(req.jwtPayload.id).lean();
   if (!currentUser) {
     return next(
       new AppError(
@@ -133,8 +127,7 @@ const googleLogin = catchAsync(async (req, res, next) => {
           );
 
         try {
-          User.findOne({ email })
-          .exec(async (err, user) => {
+          User.findOne({ email }).exec(async (err, user) => {
             if (err) {
               return res.status(404).json({
                 message: err.message,
