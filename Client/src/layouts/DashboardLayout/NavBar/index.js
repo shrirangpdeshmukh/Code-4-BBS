@@ -9,7 +9,7 @@ import {
   Drawer,
   Hidden,
   List,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import {
   AlertCircle as AlertCircleIcon,
@@ -19,61 +19,81 @@ import {
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Users as UsersIcon,
 } from 'react-feather';
 import NavItem from './NavItem';
+import { GoogleLogout } from 'react-google-login';
+import axios from 'axios';
 
-const user = {
+const user1 = {
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  name: 'Katarina Smith',
 };
 
 const items = [
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: 'Dashboard',
   },
   {
     href: '/app/customers',
     icon: UsersIcon,
-    title: 'Customers'
+    title: 'Customers',
   },
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Products'
+    title: 'Products',
   },
   {
     href: '/app/account',
     icon: UserIcon,
-    title: 'Account'
+    title: 'Account',
   },
   {
     href: '/app/settings',
     icon: SettingsIcon,
-    title: 'Settings'
+    title: 'Settings',
   },
   {
     href: '/login',
     icon: LockIcon,
-    title: 'Login'
+    title: 'Login',
   },
   {
     href: '/register',
     icon: UserPlusIcon,
-    title: 'Register'
+    title: 'Register',
   },
   {
     href: '/404',
     icon: AlertCircleIcon,
-    title: 'Error'
-  }
+    title: 'Error',
+  },
 ];
+const logOut = (cookies) => {
+  axios
+    .post('/api/v1/auth/logout', {
+      withCredentials: true,
+    })
+    .then((response) => {
+      cookies.cookies.remove('isLoggedIn', { path: '/' });
+      cookies.cookies.remove('userData', { path: '/' });
+      window.location.href = '/';
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
-const NavBar = ({ onMobileClose, openMobile }) => {
+const NavBar = ({ user, cookies, onMobileClose, openMobile }) => {
   const location = useLocation();
+
+  if (typeof user === 'string') {
+    user = JSON.parse(user);
+  }
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -86,7 +106,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
       }}
     >
       <Box
@@ -94,33 +114,38 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           alignItems: 'center',
           display: 'flex',
           flexDirection: 'column',
-          p: 2
+          p: 2,
         }}
       >
         <Avatar
           component={RouterLink}
-          src={user.avatar}
+          src={user.image}
           sx={{
             cursor: 'pointer',
             width: 64,
-            height: 64
+            height: 64,
           }}
           to="/app/account"
         />
-        <Typography
-          color="textPrimary"
-          variant="h5"
-        >
+        <Typography color="textPrimary" variant="h5">
           {user.name}
         </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
+        <Typography color="textSecondary" variant="body2">
+          {user.email}
         </Typography>
       </Box>
       <Divider />
+      <Box p={2} m={2}>
+        <Box display="flex" justifyContent="center" mt={1}>
+          <GoogleLogout
+            clientId="1092979243632-ufl3842hjal4adoaio73ta2noj2avnbo.apps.googleusercontent.com"
+            buttonText="LOG OUT"
+            onLogoutSuccess={() => logOut({ cookies })}
+            theme="dark"
+            icon={false}
+          ></GoogleLogout>
+        </Box>
+      </Box>
       <Box sx={{ p: 2 }}>
         <List>
           {items.map((item) => (
@@ -132,44 +157,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             />
           ))}
         </List>
-      </Box>
-      <Box sx={{ flexGrow: 1 }} />
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          m: 2,
-          p: 2
-        }}
-      >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            pt: 2
-          }}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
       </Box>
     </Box>
   );
@@ -184,8 +171,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           variant="temporary"
           PaperProps={{
             sx: {
-              width: 256
-            }
+              width: 256,
+            },
           }}
         >
           {content}
@@ -200,8 +187,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             sx: {
               width: 256,
               top: 64,
-              height: 'calc(100% - 64px)'
-            }
+              height: 'calc(100% - 64px)',
+            },
           }}
         >
           {content}
@@ -213,12 +200,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
 NavBar.propTypes = {
   onMobileClose: PropTypes.func,
-  openMobile: PropTypes.bool
+  openMobile: PropTypes.bool,
 };
 
 NavBar.defaultProps = {
-  onMobileClose: () => { },
-  openMobile: false
+  onMobileClose: () => {},
+  openMobile: false,
 };
 
 export default NavBar;
