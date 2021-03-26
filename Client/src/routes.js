@@ -19,7 +19,7 @@ const setUserAsProps = (user, cookies) => {
         { path: 'account', element: <AccountView user={user} /> },
         { path: 'customers', element: <CustomerListView user={user} /> },
         { path: 'dashboard', element: <DashboardView user={user} /> },
-        { path: 'products', element: <ProductListView user={user} /> },
+        { path: 'sports', element: <ProductListView user={user} /> },
         { path: 'settings', element: <SettingsView /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],

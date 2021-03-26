@@ -80,6 +80,10 @@ exports.createEquipment = catchAsync(async (req, res, next) => {
   const data = req.body;
   const newEquipment = await Equipment.create({ ...data });
 
+  const equipmentType = await EqType.findByIdAndUpdate(data.type, {
+    $inc: { totalEquipments: 1 },
+  });
+
   res.status(200).json({
     status: "sucesss",
     equipment: newEquipment,

@@ -31,10 +31,10 @@ const ProductCard = ({ product, ...rest }) => (
         {product.name}
       </Typography>
       <Typography align="left" color="textPrimary" variant="body1">
-        Total Equipments : {product.total}
+        Total Equipments : {product.totalEquipments}
       </Typography>
       <Typography align="left" color="textPrimary" variant="body1">
-        Available Equipments : {product.total - product.issued}
+        Available Equipments : {product.totalEquipments - product.issued}
       </Typography>
     </CardContent>
     <Box sx={{ flexGrow: 1 }} />
@@ -55,10 +55,13 @@ const ProductCard = ({ product, ...rest }) => (
             sx={{ pl: 1 }}
             variant="body2"
           >
-            Updated 2hr ago
+            Status :{' '}
+            {product.totalEquipments - product.issued > 0
+              ? 'Available'
+              : 'Not Available'}
           </Typography>
         </Grid>
-        <Grid
+        {/* <Grid
           item
           sx={{
             alignItems: 'center',
@@ -74,7 +77,7 @@ const ProductCard = ({ product, ...rest }) => (
           >
             {product.totalDownloads} Downloads
           </Typography>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   </Card>
