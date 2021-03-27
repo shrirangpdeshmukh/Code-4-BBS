@@ -34,22 +34,26 @@ const Complaints = (props) => (
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
-              <TableCell>Subject</TableCell>
+              <TableCell>Category</TableCell>
+              {/* <TableCell>Subject</TableCell> */}
               <TableCell>Description</TableCell>
               <TableCell>Student Name</TableCell>
               <TableCell>Room Number</TableCell>
+              <TableCell>Phone Number</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.complaints.map((complaint) => (
-              <TableRow hover key={complaint.id}>
+              <TableRow hover key={complaint._id}>
                 <TableCell>
-                  {moment(complaint.createdAt).format('DD/MM/YYYY')}
+                  {moment(complaint.createdAt).format('DD/MM/YYYY hh:mm A')}
                 </TableCell>
-                <TableCell>{complaint.subject}</TableCell>
+                <TableCell>{complaint.category.toUpperCase()}</TableCell>
+                {/* <TableCell>{complaint.subject}</TableCell> */}
                 <TableCell>{complaint.description}</TableCell>
                 <TableCell>{complaint.student.name}</TableCell>
                 <TableCell>{complaint.student.room}</TableCell>
+                <TableCell>{complaint.phone}</TableCell>
               </TableRow>
             ))}
           </TableBody>

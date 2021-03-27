@@ -3,7 +3,7 @@ const authLogic = require("./../model/businessLogic/authLogic");
 const complaintController = require("./../controller/complaintController");
 const router = express.Router();
 
-// router.use(authLogic.verifyJwtToken);
+router.use(authLogic.verifyJwtToken);
 
 //Get All Complaints
 router.get("/", complaintController.getAllComplaints);
@@ -12,7 +12,7 @@ router.get("/", complaintController.getAllComplaints);
 router.get("/:id", complaintController.getAComplaint);
 
 //Create a Complaint
-router.post("/", complaintController.createComplaint);
+router.post("/", authLogic.loggedInUser, complaintController.createComplaint);
 
 //resolve a complaint
 router.patch("/resolve/:id", complaintController.closeComplaint);
