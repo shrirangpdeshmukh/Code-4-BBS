@@ -37,6 +37,7 @@ exports.getAllEquiments = catchAsync(async (req, res, next) => {
   const docs = await EqType.findById(id).populate({
     path: "equipments",
     model: "Equipment",
+    populate: { path: "issuedTo", model: "User" },
   });
 
   if (!docs) {
@@ -45,11 +46,27 @@ exports.getAllEquiments = catchAsync(async (req, res, next) => {
       message: "No equipment type with the given id exists",
     });
   }
+  let issuedEquipments = [];
+  let availableEquipments = [];
+
+  for (let equip of docs.equipments) {
+    if (equip.status == "Available") {
+      availableEquipments.push(equip);
+    } else {
+      issuedEquipments.push(equip);
+    }
+  }
+
+  docs.totalEquipments = docs.equipments.length;
+  docs.issued = issuedEquipments.length;
+
+  await docs.save();
 
   res.status(200).json({
     status: "success",
     results: docs.length,
-    docs,
+    issuedEquipments,
+    availableEquipments,
   });
 });
 
@@ -83,7 +100,7 @@ exports.createEquipment = catchAsync(async (req, res, next) => {
 
   await EqType.findByIdAndUpdate(data.type, {
     $inc: { totalEquipments: 1 },
-    $push: { equipment: newEquipment._id },
+    $push: { equipments: newEquipment._id },
   });
 
   res.status(200).json({
@@ -100,7 +117,7 @@ exports.issueEquipment = catchAsync(async (req, res, next) => {
   }
 
   const user = req.user;
-  equipment.issuedTo = user.id;
+  equipment.issuedTo = user._id;
   equipment.issuedDate = new Date().toLocaleString();
   equipment.status = "Issued";
 
