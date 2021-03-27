@@ -45,6 +45,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "Not Specified",
     },
+    phoneNumber: {
+      type: String
+    }
   },
   {
     toJSON: { virtuals: true },
