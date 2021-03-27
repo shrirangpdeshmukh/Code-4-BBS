@@ -64,7 +64,7 @@ class Wrapper extends Component {
   checkIsLoggedIn = () => {
     const cookies = this.props.cookies.cookies;
     this.setState({
-      user: cookies.userData,
+      user: JSON.parse(cookies.userData),
       isLoggedIn: cookies.isLoggedIn,
     });
   };
