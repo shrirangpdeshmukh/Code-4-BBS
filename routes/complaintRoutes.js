@@ -3,7 +3,7 @@ const authLogic = require("./../model/businessLogic/authLogic");
 const complaintController = require("./../controller/complaintController");
 const router = express.Router();
 
-router.use(authLogic.verifyJwtToken);
+// router.use(authLogic.verifyJwtToken);
 
 //Get All Complaints
 router.get("/", complaintController.getAllComplaints);

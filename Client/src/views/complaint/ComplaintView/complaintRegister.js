@@ -18,69 +18,6 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
-const complaints = [
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-];
-
 const Complaints = (props) => (
   <Card {...props}>
     <CardHeader title="Pending Complaints" />
@@ -104,7 +41,7 @@ const Complaints = (props) => (
             </TableRow>
           </TableHead>
           <TableBody>
-            {complaints.map((complaint) => (
+            {props.complaints.map((complaint) => (
               <TableRow hover key={complaint.id}>
                 <TableCell>
                   {moment(complaint.createdAt).format('DD/MM/YYYY')}
